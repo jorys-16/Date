@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pour toi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <!-- SCREEN 1: SEALED ENVELOPE -->
+      <section id="step-1" class="screen active">
+        <div class="envelope-stage">
+          <button
+            id="envelope"
+            class="envelope"
+            type="button"
+            aria-label="Ouvrir la lettre"
+          >
+            <div class="envelope-back"></div>
+            <div class="envelope-letter">
+              <span class="letter-preview-label">POUR TOI</span>
+              <div class="letter-preview-lines">
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <!-- Front folds SVG for crisp edges on every screen -->
+            <svg
+              class="envelope-front"
+              viewBox="0 0 320 210"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <polygon points="0,0 160,115 0,210" fill="#fbf9f6" />
+              <polygon points="320,0 160,115 320,210" fill="#f7f3ee" />
+              <polygon points="0,210 160,102 320,210" fill="#ffffff" />
+              <polyline
+                points="0,0 160,115 320,0"
+                fill="none"
+                stroke="#e8e1d9"
+                stroke-width="1.2"
+              />
+              <polyline
+                points="0,210 160,102 320,210"
+                fill="none"
+                stroke="#ece6df"
+                stroke-width="1.2"
+              />
+            </svg>
+
+            <div class="envelope-flap"></div>
+
+            <div class="wax-seal" aria-hidden="true">
+              <svg viewBox="0 0 24 24" class="heart-icon">
+                <path
+                  d="M12 20.5s-7.5-4.7-9.5-9C.9 8.1 2.7 4.5 6.3 4.5c2.1 0 3.7 1.2 4.7 2.6 1-1.4 2.6-2.6 4.7-2.6 3.6 0 5.4 3.6 3.8 7-2 4.3-9.5 9-9.5 9z"
+                />
+              </svg>
+            </div>
+          </button>
+          <p class="envelope-prompt">Touche la lettre</p>
+        </div>
+      </section>
+
+      <!-- SCREEN 2: THE QUESTION CARD -->
+      <section id="step-2" class="screen">
+        <div class="card">
+          <span class="eyebrow">POUR TOI</span>
+          <h1 class="serif-title">Ça te dit un date avec moi&nbsp;?</h1>
+          <p class="subtitle">Promis, tu ne vas pas regretter.</p>
+
+          <div class="action-row">
+            <button id="btn-no" class="btn btn-outline" type="button">Non</button>
+            <button id="btn-yes" class="btn btn-primary" type="button">Oui</button>
+          </div>
+
+          <p id="no-hint" class="hint-text" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: TIME-SLOT PICKER -->
+      <section id="step-3" class="screen">
+        <div class="card">
+          <span class="eyebrow">PARFAIT</span>
+          <h2 class="serif-title">Choisis l'heure qui te va</h2>
+
+          <!-- Customize the activity & date below -->
+          <div class="event-meta">
+            <span>Cinéma &amp; un verre</span>
+            <span class="dot">•</span>
+            <span>Ce samedi</span>
+          </div>
+
+          <div class="slots-grid" role="group" aria-label="Créneaux horaires">
+            <button class="slot" type="button" data-time="14h00">14h00</button>
+            <button class="slot" type="button" data-time="16h30">16h30</button>
+            <button class="slot" type="button" data-time="18h00">18h00</button>
+            <button class="slot" type="button" data-time="19h30">19h30</button>
+            <button class="slot" type="button" data-time="20h45">20h45</button>
+            <button class="slot" type="button" data-time="21h30">21h30</button>
+          </div>
+
+          <div class="note-wrapper">
+            <label for="note-input" class="note-label">
+              Un petit mot ou un film en tête&nbsp;? (optionnel)
+            </label>
+            <input
+              id="note-input"
+              class="note-input"
+              type="text"
+              placeholder="Écris ici..."
+              maxlength="140"
+            />
+          </div>
+
+          <button id="btn-confirm" class="btn btn-primary btn-full" type="button" disabled>
+            Confirmer
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN 4: CONFIRMATION CARD -->
+      <section id="step-4" class="screen">
+        <div class="card confirm-card">
+          <div class="wax-seal wax-seal-static" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="heart-icon">
+              <path
+                d="M12 20.5s-7.5-4.7-9.5-9C.9 8.1 2.7 4.5 6.3 4.5c2.1 0 3.7 1.2 4.7 2.6 1-1.4 2.6-2.6 4.7-2.6 3.6 0 5.4 3.6 3.8 7-2 4.3-9.5 9-9.5 9z"
+              />
+            </svg>
+          </div>
+
+          <span class="eyebrow">C'EST CONFIRMÉ</span>
+          <h2 class="serif-title">C'est noté</h2>
+
+          <div class="summary-pill">
+            Rendez-vous à <strong id="confirmed-time"></strong>
+          </div>
+
+          <p id="confirmed-note" class="confirmed-note" hidden></p>
+          <p class="closing-line">J'ai vraiment hâte.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
